@@ -44,6 +44,14 @@
 
     <dependencies>
 
+        <!-- AntLR -->
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-runtime</artifactId>
+            <version>4.7.1</version>
+        </dependency>
+
+
         <!-- graph -->
         <dependency>
             <groupId>net.sf.jung</groupId>
@@ -143,6 +151,12 @@
                         </reports>
                     </reportSet>
                 </reportSets>
+            </plugin>
+
+            <plugin>
+                <groupId>de.flashpixx</groupId>
+                <artifactId>rrd-antlr4</artifactId>
+                <version>0.0.1</version>
             </plugin>
 
         </plugins>
@@ -264,6 +278,7 @@
                             <directory>.</directory>
                             <includes>
                                 <include>dependency-reduced-pom.xml</include>
+                                <include>src/main/antlr4/**/*.tokens</include>
                             </includes>
                         </fileset>
                     </filesets>
@@ -302,6 +317,27 @@
                         <asl>javadoc_style</asl>
                     </mapping>
                 </configuration>
+            </plugin>
+
+            <!-- AntLR grammar build -->
+            <plugin>
+                <groupId>org.antlr</groupId>
+                <artifactId>antlr4-maven-plugin</artifactId>
+                <version>4.7.1</version>
+                <configuration>
+                    <visitor>true</visitor>
+                    <listener>false</listener>
+                    <treatWarningsAsErrors>true</treatWarningsAsErrors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>antlr</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>antlr4</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <!-- Doxygen -->

@@ -21,29 +21,28 @@
  * @endcond
  */
 
-package de.tu_clausthal.in.mec.modeling.model.graph.jung;
+package de.tu_clausthal.in.mec.modeling.model.petri;
 
-import de.tu_clausthal.in.mec.modeling.model.graph.IEdge;
-import de.tu_clausthal.in.mec.modeling.model.graph.INode;
-import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
+import de.tu_clausthal.in.mec.modeling.model.graph.IBaseEdge;
 import edu.umd.cs.findbugs.annotations.NonNull;
+
+import javax.annotation.Nonnegative;
 
 
 /**
- * directed multi graph
- *
- * @tparam N node type
- * @tparam E edge type
+ * linkage class
  */
-public final class CDirectedMultiGraph<N extends INode, E extends IEdge> extends IBaseGraph<N, E>
+public final class CLinkage extends IBaseEdge implements ILinkage
 {
     /**
      * ctor
      *
-     * @param p_name identifier / name of the graph
+     * @param p_id edge name
+     * @param p_capacity capacity
      */
-    public CDirectedMultiGraph( @NonNull final String p_name )
+    public CLinkage( @NonNull final String p_id, @Nonnegative @NonNull final Number p_capacity )
     {
-        super( p_name, new DirectedSparseMultigraph<>() );
+        super( p_id, () -> p_capacity );
     }
+
 }

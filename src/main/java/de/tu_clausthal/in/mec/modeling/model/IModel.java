@@ -21,29 +21,39 @@
  * @endcond
  */
 
-package de.tu_clausthal.in.mec.modeling.model.graph.jung;
+package de.tu_clausthal.in.mec.modeling.model;
 
-import de.tu_clausthal.in.mec.modeling.model.graph.IEdge;
-import de.tu_clausthal.in.mec.modeling.model.graph.INode;
-import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
-import edu.umd.cs.findbugs.annotations.NonNull;
+import java.util.concurrent.Callable;
 
 
 /**
- * directed multi graph
+ * interface of a model
  *
- * @tparam N node type
- * @tparam E edge type
+ * @tparam T model type
  */
-public final class CDirectedMultiGraph<N extends INode, E extends IEdge> extends IBaseGraph<N, E>
+public interface IModel<T extends IModel<?>> extends Callable<T>
 {
     /**
-     * ctor
+     * returns the model id
      *
-     * @param p_name identifier / name of the graph
+     * @return id
      */
-    public CDirectedMultiGraph( @NonNull final String p_name )
-    {
-        super( p_name, new DirectedSparseMultigraph<>() );
-    }
+    String id();
+
+    /**
+     * flag for model is terminated
+     *
+     * @return terminate flag
+     */
+    boolean terminated();
+
+    /**
+     * casting method to cast a model into its subtype
+     *
+     * @return model
+     *
+     * @tparam N target model type
+     */
+    <N extends IModel<T>> N raw();
+
 }

@@ -21,29 +21,33 @@
  * @endcond
  */
 
-package de.tu_clausthal.in.mec.modeling.model.graph.jung;
+package de.tu_clausthal.in.mec.modeling.model.petri;
 
-import de.tu_clausthal.in.mec.modeling.model.graph.IEdge;
-import de.tu_clausthal.in.mec.modeling.model.graph.INode;
-import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
+import de.tu_clausthal.in.mec.modeling.model.graph.IBaseNode;
 import edu.umd.cs.findbugs.annotations.NonNull;
+
+import java.util.stream.Stream;
 
 
 /**
- * directed multi graph
- *
- * @tparam N node type
- * @tparam E edge type
+ * transition class
  */
-public final class CDirectedMultiGraph<N extends INode, E extends IEdge> extends IBaseGraph<N, E>
+public final class CTransition extends IBaseNode implements ITransition
 {
     /**
      * ctor
      *
-     * @param p_name identifier / name of the graph
+     * @param p_id transition id
      */
-    public CDirectedMultiGraph( @NonNull final String p_name )
+    public CTransition( @NonNull final String p_id )
     {
-        super( p_name, new DirectedSparseMultigraph<>() );
+        super( p_id );
     }
+
+    @Override
+    public final Stream<IMark> apply( @NonNull final Stream<IMark> p_stream )
+    {
+        return p_stream;
+    }
+
 }

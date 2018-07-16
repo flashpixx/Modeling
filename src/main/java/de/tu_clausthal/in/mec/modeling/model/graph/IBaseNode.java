@@ -21,29 +21,48 @@
  * @endcond
  */
 
-package de.tu_clausthal.in.mec.modeling.model.graph.jung;
+package de.tu_clausthal.in.mec.modeling.model.graph;
 
-import de.tu_clausthal.in.mec.modeling.model.graph.IEdge;
-import de.tu_clausthal.in.mec.modeling.model.graph.INode;
-import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 
 /**
- * directed multi graph
- *
- * @tparam N node type
- * @tparam E edge type
+ * abstract class of an node
  */
-public final class CDirectedMultiGraph<N extends INode, E extends IEdge> extends IBaseGraph<N, E>
+public abstract class IBaseNode implements INode
 {
+    /**
+     * id of the node
+     */
+    protected final String m_id;
+
     /**
      * ctor
      *
-     * @param p_name identifier / name of the graph
+     * @param p_id edge id
      */
-    public CDirectedMultiGraph( @NonNull final String p_name )
+    protected IBaseNode( @NonNull final String p_id )
     {
-        super( p_name, new DirectedSparseMultigraph<>() );
+        m_id = p_id;
     }
+
+    @Override
+    public final int hashCode()
+    {
+        return m_id.hashCode();
+    }
+
+    @Override
+    public final boolean equals( final Object p_object )
+    {
+        return p_object instanceof INode && p_object.hashCode() == this.hashCode();
+    }
+
+    @NonNull
+    @Override
+    public final String id()
+    {
+        return m_id;
+    }
+
 }

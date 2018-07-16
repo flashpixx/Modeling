@@ -21,29 +21,70 @@
  * @endcond
  */
 
-package de.tu_clausthal.in.mec.modeling.model.graph.jung;
+package de.tu_clausthal.in.mec.modeling.model.petri;
 
-import de.tu_clausthal.in.mec.modeling.model.graph.IEdge;
-import de.tu_clausthal.in.mec.modeling.model.graph.INode;
-import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
+import de.tu_clausthal.in.mec.modeling.model.graph.IBaseNode;
 import edu.umd.cs.findbugs.annotations.NonNull;
+
+import javax.annotation.Nonnegative;
+import java.text.MessageFormat;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.stream.Stream;
 
 
 /**
- * directed multi graph
- *
- * @tparam N node type
- * @tparam E edge type
+ * petrinet place
  */
-public final class CDirectedMultiGraph<N extends INode, E extends IEdge> extends IBaseGraph<N, E>
+public final class CPlace extends IBaseNode implements IPlace
 {
+    /**
+     * set with marks
+     */
+    private final Set<IMark> m_marks = new CopyOnWriteArraySet<>();
+    /**
+     * capacity
+     */
+    private final int m_capacity;
+
     /**
      * ctor
      *
-     * @param p_name identifier / name of the graph
+     * @param p_id id of the place
      */
-    public CDirectedMultiGraph( @NonNull final String p_name )
+    public CPlace( @NonNull final String p_id )
     {
-        super( p_name, new DirectedSparseMultigraph<>() );
+        this( p_id, Integer.MAX_VALUE );
+    }
+
+    /**
+     * ctor
+     *
+     * @param p_id id of the place
+     * @param p_capacity capacity
+     */
+    public CPlace( @NonNull final String p_id, @Nonnegative int p_capacity )
+    {
+        super( p_id );
+        m_capacity = p_capacity;
+    }
+
+    @Override
+    public Number get()
+    {
+        return m_marks.size();
+    }
+
+    @Override
+    public void accept( @NonNull final Stream<IMark> p_stream )
+    {
+        if ( p_stream.peek( m_marks::add ).anyMatch( i -> m_marks.size() > m_capacity ) )
+            throw new RuntimeException( MessageFormat.format( "place [{0}] with capacity [{1}] is full", m_id, m_capacity ) );
+    }
+
+    @Override
+    public Stream<IMark> apply( @NonNull final Number p_number )
+    {
+        return m_marks.stream().peek( m_marks::remove ).limit( p_number.longValue() );
     }
 }

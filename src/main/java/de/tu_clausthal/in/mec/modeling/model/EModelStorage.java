@@ -21,29 +21,44 @@
  * @endcond
  */
 
-package de.tu_clausthal.in.mec.modeling.model.graph.jung;
+package de.tu_clausthal.in.mec.modeling.model;
 
-import de.tu_clausthal.in.mec.modeling.model.graph.IEdge;
-import de.tu_clausthal.in.mec.modeling.model.graph.INode;
-import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.umd.cs.findbugs.annotations.NonNull;
+
+import java.text.MessageFormat;
+import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 
 /**
- * directed multi graph
- *
- * @tparam N node type
- * @tparam E edge type
+ * model storage
  */
-public final class CDirectedMultiGraph<N extends INode, E extends IEdge> extends IBaseGraph<N, E>
+public enum EModelStorage implements Function<String, IModel<?>>, Consumer<IModel<?>>
 {
+    INSTANCE;
+
     /**
-     * ctor
-     *
-     * @param p_name identifier / name of the graph
+     * model map
      */
-    public CDirectedMultiGraph( @NonNull final String p_name )
+    private final Map<String, IModel<?>> m_model = new ConcurrentHashMap<>();
+
+    @Override
+    public void accept( @NonNull final IModel<?> p_model )
     {
-        super( p_name, new DirectedSparseMultigraph<>() );
+        m_model.put( p_model.id(), p_model );
+    }
+
+    @NonNull
+    @Override
+    public IModel<?> apply( @NonNull final String p_id )
+    {
+        final IModel<?> l_model = m_model.get( p_id );
+        if ( Objects.isNull( l_model ) )
+            throw new RuntimeException( MessageFormat.format( "model [{0}] does not exist", p_id ) );
+
+        return l_model;
     }
 }

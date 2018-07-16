@@ -21,29 +21,14 @@
  * @endcond
  */
 
-package de.tu_clausthal.in.mec.modeling.model.graph.jung;
+package de.tu_clausthal.in.mec.modeling.model.petri;
 
 import de.tu_clausthal.in.mec.modeling.model.graph.IEdge;
-import de.tu_clausthal.in.mec.modeling.model.graph.INode;
-import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 
 /**
- * directed multi graph
- *
- * @tparam N node type
- * @tparam E edge type
+ * linkage interface between transition and place
  */
-public final class CDirectedMultiGraph<N extends INode, E extends IEdge> extends IBaseGraph<N, E>
+public interface ILinkage extends IEdge
 {
-    /**
-     * ctor
-     *
-     * @param p_name identifier / name of the graph
-     */
-    public CDirectedMultiGraph( @NonNull final String p_name )
-    {
-        super( p_name, new DirectedSparseMultigraph<>() );
-    }
 }

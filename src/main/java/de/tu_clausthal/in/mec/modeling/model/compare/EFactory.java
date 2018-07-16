@@ -21,29 +21,28 @@
  * @endcond
  */
 
-package de.tu_clausthal.in.mec.modeling.model.graph.jung;
+package de.tu_clausthal.in.mec.modeling.model.compare;
 
 import de.tu_clausthal.in.mec.modeling.model.graph.IEdge;
 import de.tu_clausthal.in.mec.modeling.model.graph.INode;
-import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
-import edu.umd.cs.findbugs.annotations.NonNull;
+
+import java.text.MessageFormat;
 
 
 /**
- * directed multi graph
- *
- * @tparam N node type
- * @tparam E edge type
+ * comparator factory
  */
-public final class CDirectedMultiGraph<N extends INode, E extends IEdge> extends IBaseGraph<N, E>
+public enum EFactory implements ICompareSupplier
 {
-    /**
-     * ctor
-     *
-     * @param p_name identifier / name of the graph
-     */
-    public CDirectedMultiGraph( @NonNull final String p_name )
+    PETRINET;
+
+    @Override
+    public <N extends INode, E extends IEdge> ICompare<N, E> get()
     {
-        super( p_name, new DirectedSparseMultigraph<>() );
+        switch ( this )
+        {
+            default:
+                throw new RuntimeException( MessageFormat.format( "unknown factory for [{0}]", this ) );
+        }
     }
 }

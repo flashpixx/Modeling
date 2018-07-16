@@ -21,29 +21,68 @@
  * @endcond
  */
 
-package de.tu_clausthal.in.mec.modeling.model.graph.jung;
+package de.tu_clausthal.in.mec.modeling.model.petri;
 
-import de.tu_clausthal.in.mec.modeling.model.graph.IEdge;
-import de.tu_clausthal.in.mec.modeling.model.graph.INode;
-import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
+import de.tu_clausthal.in.mec.modeling.model.IModel;
+import de.tu_clausthal.in.mec.modeling.model.graph.IGraph;
+import de.tu_clausthal.in.mec.modeling.model.graph.jung.CDirectedGraph;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 
 /**
- * directed multi graph
- *
- * @tparam N node type
- * @tparam E edge type
+ * petrinet model
  */
-public final class CDirectedMultiGraph<N extends INode, E extends IEdge> extends IBaseGraph<N, E>
+public final class CPetrinet implements IPetrinet
 {
+    /**
+     * graph structure
+     */
+    private final IGraph<IPlace, ILinkage> m_network;
+
     /**
      * ctor
      *
-     * @param p_name identifier / name of the graph
+     * @param p_name name
      */
-    public CDirectedMultiGraph( @NonNull final String p_name )
+    public CPetrinet( @NonNull final String p_name )
     {
-        super( p_name, new DirectedSparseMultigraph<>() );
+        m_network = new CDirectedGraph<>( p_name );
+    }
+
+    @Override
+    public String id()
+    {
+        return m_network.id();
+    }
+
+    @Override
+    public boolean terminated()
+    {
+        return false;
+    }
+
+    @Override
+    @SuppressWarnings( "unchecked" )
+    public <N extends IModel<IPetrinet>> N raw()
+    {
+        return (N) this;
+    }
+
+    @Override
+    public IPetrinet call() throws Exception
+    {
+        return this;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return m_network.hashCode();
+    }
+
+    @Override
+    public boolean equals( final Object p_object )
+    {
+        return p_object instanceof IModel<?> && p_object.hashCode() == this.hashCode();
     }
 }

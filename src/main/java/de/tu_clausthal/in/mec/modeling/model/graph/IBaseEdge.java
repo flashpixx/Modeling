@@ -21,29 +21,74 @@
  * @endcond
  */
 
-package de.tu_clausthal.in.mec.modeling.model.graph.jung;
+package de.tu_clausthal.in.mec.modeling.model.graph;
 
-import de.tu_clausthal.in.mec.modeling.model.graph.IEdge;
-import de.tu_clausthal.in.mec.modeling.model.graph.INode;
-import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
+
 import edu.umd.cs.findbugs.annotations.NonNull;
+
+import javax.annotation.Nonnull;
+import java.util.function.Supplier;
 
 
 /**
- * directed multi graph
- *
- * @tparam N node type
- * @tparam E edge type
+ * abstract class of an edge
  */
-public final class CDirectedMultiGraph<N extends INode, E extends IEdge> extends IBaseGraph<N, E>
+public abstract class IBaseEdge implements IEdge
 {
+    /**
+     * id of the edge
+     */
+    protected final String m_id;
+    /**
+     * weight function
+     */
+    private final Supplier<Number> m_weightfunction;
+
     /**
      * ctor
      *
-     * @param p_name identifier / name of the graph
+     * @param p_id edge id
      */
-    public CDirectedMultiGraph( @NonNull final String p_name )
+    protected IBaseEdge( @NonNull final String p_id )
     {
-        super( p_name, new DirectedSparseMultigraph<>() );
+        this( p_id, () -> 0 );
+    }
+
+    /**
+     * ctor
+     *
+     * @param p_id edge id
+     * @param p_weightfunction weight function
+     */
+    protected IBaseEdge( @NonNull final String p_id, @NonNull final Supplier<Number> p_weightfunction )
+    {
+        m_id = p_id;
+        m_weightfunction = p_weightfunction;
+    }
+
+    @Override
+    public final int hashCode()
+    {
+        return m_id.hashCode();
+    }
+
+    @Override
+    public final boolean equals( final Object p_object )
+    {
+        return p_object instanceof IEdge && p_object.hashCode() == this.hashCode();
+    }
+
+    @NonNull
+    @Override
+    public final String id()
+    {
+        return m_id;
+    }
+
+    @Nonnull
+    @Override
+    public final Number get()
+    {
+        return m_weightfunction.get();
     }
 }

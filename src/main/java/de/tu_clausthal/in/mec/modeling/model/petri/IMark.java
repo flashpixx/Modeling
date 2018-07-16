@@ -21,29 +21,11 @@
  * @endcond
  */
 
-package de.tu_clausthal.in.mec.modeling.model.graph.jung;
-
-import de.tu_clausthal.in.mec.modeling.model.graph.IEdge;
-import de.tu_clausthal.in.mec.modeling.model.graph.INode;
-import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
-import edu.umd.cs.findbugs.annotations.NonNull;
-
+package de.tu_clausthal.in.mec.modeling.model.petri;
 
 /**
- * directed multi graph
- *
- * @tparam N node type
- * @tparam E edge type
+ * interface of an petrinet mark
  */
-public final class CDirectedMultiGraph<N extends INode, E extends IEdge> extends IBaseGraph<N, E>
+public interface IMark
 {
-    /**
-     * ctor
-     *
-     * @param p_name identifier / name of the graph
-     */
-    public CDirectedMultiGraph( @NonNull final String p_name )
-    {
-        super( p_name, new DirectedSparseMultigraph<>() );
-    }
 }

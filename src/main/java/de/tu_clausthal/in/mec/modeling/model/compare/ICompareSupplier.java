@@ -21,29 +21,29 @@
  * @endcond
  */
 
-package de.tu_clausthal.in.mec.modeling.model.graph.jung;
+package de.tu_clausthal.in.mec.modeling.model.compare;
 
 import de.tu_clausthal.in.mec.modeling.model.graph.IEdge;
 import de.tu_clausthal.in.mec.modeling.model.graph.INode;
-import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
-import edu.umd.cs.findbugs.annotations.NonNull;
+
+import javax.annotation.Nonnull;
 
 
 /**
- * directed multi graph
- *
- * @tparam N node type
- * @tparam E edge type
+ * interface of graph comparators
  */
-public final class CDirectedMultiGraph<N extends INode, E extends IEdge> extends IBaseGraph<N, E>
+public interface ICompareSupplier
 {
+
     /**
-     * ctor
+     * returns a comparator object
      *
-     * @param p_name identifier / name of the graph
+     * @return comparator object
+     *
+     * @tparam N node type
+     * @tparam E edge type
      */
-    public CDirectedMultiGraph( @NonNull final String p_name )
-    {
-        super( p_name, new DirectedSparseMultigraph<>() );
-    }
+    @Nonnull
+    <N extends INode, E extends IEdge> ICompare<N, E> get();
+
 }

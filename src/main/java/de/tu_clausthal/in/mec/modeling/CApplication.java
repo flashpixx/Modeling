@@ -31,6 +31,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * main application
  */
+//Checkstyle:OFF:FinalClass
+//Checkstyle:OFF:HideUtilityClassConstructor
 @SpringBootApplication
 @EnableAutoConfiguration
 public final class CApplication
@@ -41,9 +43,11 @@ public final class CApplication
      *
      * @param p_args arguments
      */
-    public static void main(final String[] p_args)
+    public static void main( final String[] p_args )
     {
         SpringApplication.run( CApplication.class, p_args );
     }
 
 }
+//Checkstyle:ON:HideUtilityClassConstructor
+//Checkstyle:ON:FinalClass

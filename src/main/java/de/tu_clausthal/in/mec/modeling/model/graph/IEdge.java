@@ -25,10 +25,13 @@ package de.tu_clausthal.in.mec.modeling.model.graph;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
 
+import java.util.function.Supplier;
+
+
 /**
  * interface of an edge
  */
-public interface IEdge
+public interface IEdge extends Supplier<Number>
 {
     /**
      * id of the edge
@@ -37,13 +40,5 @@ public interface IEdge
      */
     @NonNull
     String id();
-
-    /**
-     * returns casted edge
-     *
-     * @return edge
-     */
-    @NonNull
-    <T extends IEdge> T raw();
 
 }

@@ -32,12 +32,16 @@ import org.springframework.web.bind.annotation.RestController;
  * petri-net rest controller
  */
 @RestController
-@RequestMapping("/petrinet")
+@RequestMapping( "/petrinet" )
 public final class CPetrinet
 {
-
-    @RequestMapping(value = "/create/{name}")
-    public void create( @PathVariable("name") final String p_name )
+    /**
+     * creates a new petrinet
+     *
+     * @param p_name name
+     */
+    @RequestMapping( value = "/create/{name}" )
+    public void create( @PathVariable( "name" ) final String p_name )
     {
         System.out.println( "model created" );
     }
