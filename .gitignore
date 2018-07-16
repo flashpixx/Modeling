@@ -1,0 +1,24 @@
+*.*
+!*.md
+!.gitignore
+!circle.yml
+!application.yml
+!system.properties
+!pom.xml
+!*.java
+
+!src/main/resources/static/*.html
+!src/main/resources/static/*.css
+!src/main/resources/static/*.svg
+!src/main/resources/static/*.js
+
+!src/analysis/**/*.xml
+!src/analysis/**/*.txt
+
+!src/site/*.doxyfile
+!src/site/*.css
+!src/site/*.xml
+
+# ignoring everything in java build
+target/**
+bin/**
