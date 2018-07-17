@@ -29,7 +29,7 @@
     <body>
         <menu ref="modules" />
         <menu ref="reports"/>
-        <menu name="Tick-Tack-Toes">
+        <menu name="Graphical-ModelChecker">
             <item name="Documentation" href="sources/"/>
         </menu>
     </body>
