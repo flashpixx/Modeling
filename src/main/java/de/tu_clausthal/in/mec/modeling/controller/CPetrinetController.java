@@ -23,6 +23,7 @@
 
 package de.tu_clausthal.in.mec.modeling.controller;
 
+import de.tu_clausthal.in.mec.modeling.model.petri.IPetrinet;
 import de.tu_clausthal.in.mec.modeling.model.storage.EModelStorage;
 import de.tu_clausthal.in.mec.modeling.model.petri.CPetrinet;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,35 +41,47 @@ public final class CPetrinetController
     /**
      * creates a new petrinet
      *
-     * @param p_name name
+     * @param p_net name
+     * @return created petrinet
      */
-    @RequestMapping( value = "/create/{name}" )
-    public void create( @PathVariable( "name" ) final String p_name )
+    @RequestMapping( value = "/create/{net}" )
+    public Object create( @PathVariable( "net" ) final String p_net )
     {
-        EModelStorage.INSTANCE.add( new CPetrinet( p_name ) ).serialize();
+        return EModelStorage.INSTANCE.add( new CPetrinet( p_net ) ).serialize();
     }
 
     /**
      * remove petrinet
      *
-     * @param p_name name
+     * @param p_net name
      */
-    @RequestMapping( value = "/remove/{name}" )
-    public void remove( @PathVariable( "name" ) final String p_name )
+    @RequestMapping( value = "/remove/{net}" )
+    public void remove( @PathVariable( "net" ) final String p_net )
     {
-        EModelStorage.INSTANCE.add( new CPetrinet( p_name ) );
+        EModelStorage.INSTANCE.remove( p_net );
     }
 
     /**
      * get petrinet
      *
-     * @param p_name name
+     * @param p_net name
      * @return petrinet structure
      */
-    @RequestMapping( value = "/get/{name}" )
-    public Object get( @PathVariable( "name" ) final String p_name )
+    @RequestMapping( value = "/get/{net}" )
+    public Object get( @PathVariable( "name" ) final String p_net )
     {
-        return EModelStorage.INSTANCE.apply( p_name ).serialize();
+        return EModelStorage.INSTANCE.apply( p_net ).serialize();
     }
 
+    /**
+     * add place
+     *
+     * @param p_net name
+     * @return petrinet structure
+     */
+    @RequestMapping( value = "/place/{net}/{place}/{capacity}" )
+    public Object place( @PathVariable( "net" ) final String p_net, @PathVariable( "place" ) final String p_place, @PathVariable( "capacity" ) final Number p_capacity )
+    {
+        return EModelStorage.INSTANCE.apply( p_net ).<IPetrinet>raw().addPlace( p_place, p_capacity ).serialize();
+    }
 }

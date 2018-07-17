@@ -85,7 +85,7 @@ public interface IGraph<N extends INode, E extends IEdge>
      * @return edge stream
      */
     @NonNull
-    Stream<? extends E> edges();
+    Stream<E> edges();
 
     /**
      * stream over all nodes
@@ -93,7 +93,7 @@ public interface IGraph<N extends INode, E extends IEdge>
      * @return node stream
      */
     @NonNull
-    Stream<? extends N> nodes();
+    Stream<N> nodes();
 
     /**
      * calculates the shortest path between two nodes
@@ -102,7 +102,7 @@ public interface IGraph<N extends INode, E extends IEdge>
      * @param p_end end node
      * @return edge stream
      */
-    Stream<? extends E> shortestpath( @Nonnull final String p_start, @Nonnull final String p_end );
+    Stream<E> shortestpath( @Nonnull final String p_start, @Nonnull final String p_end );
 
     /**
      * returns the spanning tree of the graph
@@ -118,7 +118,7 @@ public interface IGraph<N extends INode, E extends IEdge>
      * @param p_nodes node sretam
      * @return edge stream
      */
-    Stream<? extends E> inedges( @NonNull final Stream<N> p_nodes );
+    Stream<E> inedges( @NonNull final Stream<N> p_nodes );
 
     /**
      * returns a stream of all out-edge of a node
@@ -126,7 +126,7 @@ public interface IGraph<N extends INode, E extends IEdge>
      * @param p_nodes node stream
      * @return edge stream
      */
-    Stream<? extends E> outedges( @NonNull final Stream<N> p_nodes );
+    Stream<E> outedges( @NonNull final Stream<N> p_nodes );
 
     /**
      * get stream of node neighbours
@@ -134,7 +134,7 @@ public interface IGraph<N extends INode, E extends IEdge>
      * @param p_nodes node stream
      * @return node stream
      */
-    Stream<? extends N> neighbours( @NonNull final Stream<N> p_nodes );
+    Stream<N> neighbours( @NonNull final Stream<N> p_nodes );
 
     /**
      * returns a stream of all in-edges of a node
@@ -143,7 +143,7 @@ public interface IGraph<N extends INode, E extends IEdge>
      * @return edge stream
      */
     @SuppressWarnings( "unchecked" )
-    Stream<? extends E> inedges( @NonNull final N... p_nodes );
+    Stream<E> inedges( @NonNull final N... p_nodes );
 
     /**
      * returns a stream of all out-edge of a node
@@ -152,7 +152,7 @@ public interface IGraph<N extends INode, E extends IEdge>
      * @return edge stream
      */
     @SuppressWarnings( "unchecked" )
-    Stream<? extends E> outedges( @NonNull final N... p_nodes );
+    Stream<E> outedges( @NonNull final N... p_nodes );
 
     /**
      * get stream of node neighbours
@@ -161,7 +161,7 @@ public interface IGraph<N extends INode, E extends IEdge>
      * @return node stream
      */
     @SuppressWarnings( "unchecked" )
-    Stream<? extends N> neighbours( @NonNull final N... p_nodes );
+    Stream<N> neighbours( @NonNull final N... p_nodes );
 
     /**
      * returns a stream of all in-edges of a node
@@ -169,7 +169,7 @@ public interface IGraph<N extends INode, E extends IEdge>
      * @param p_nodes node ids
      * @return edge stream
      */
-    Stream<? extends E> inedges( @NonNull final String... p_nodes );
+    Stream<E> inedges( @NonNull final String... p_nodes );
 
     /**
      * returns a stream of all out-edge of a node
@@ -177,7 +177,7 @@ public interface IGraph<N extends INode, E extends IEdge>
      * @param p_nodes node ids
      * @return edge stream
      */
-    Stream<? extends E> outedges( @NonNull final String... p_nodes );
+    Stream<E> outedges( @NonNull final String... p_nodes );
 
     /**
      * get stream of node neighbours
@@ -185,7 +185,7 @@ public interface IGraph<N extends INode, E extends IEdge>
      * @param p_nodes node ids
      * @return node stream
      */
-    Stream<? extends N> neighbours( @NonNull final String... p_nodes );
+    Stream<N> neighbours( @NonNull final String... p_nodes );
 
     /**
      * removes an edge stream from graph

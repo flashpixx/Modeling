@@ -41,4 +41,10 @@ public interface IEdge extends Supplier<Number>
     @NonNull
     String id();
 
+    /**
+     * cast operation
+     *
+     * @return casted edge
+     */
+    <T extends IEdge> T raw();
 }

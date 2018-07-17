@@ -33,6 +33,7 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 /**
@@ -45,7 +46,7 @@ public final class CPetrinet implements IPetrinet
     /**
      * graph structure
      */
-    private final IGraph<IPlace, IConnection> m_network;
+    private final IGraph<IPetrinetNode, IConnection> m_network;
 
     /**
      * ctor
@@ -72,7 +73,7 @@ public final class CPetrinet implements IPetrinet
     @NonNull
     @Override
     @SuppressWarnings( "unchecked" )
-    public <N extends IModel<IPetrinet>> N raw()
+    public <N extends IModel<?>> N raw()
     {
         return (N) this;
     }
@@ -81,7 +82,7 @@ public final class CPetrinet implements IPetrinet
     @Override
     public Object serialize()
     {
-        return new CSerializer();
+        return new CSerializer( m_network );
     }
 
     @Override
@@ -89,6 +90,8 @@ public final class CPetrinet implements IPetrinet
     {
         return this;
     }
+
+
 
     @Override
     public int hashCode()
@@ -102,6 +105,20 @@ public final class CPetrinet implements IPetrinet
         return p_object instanceof IModel<?> && p_object.hashCode() == this.hashCode();
     }
 
+    @Override
+    public IPetrinet addPlace( @NonNull final String p_id, @NonNull final Number p_capacity )
+    {
+        m_network.addnode( new CPlace( p_id, p_capacity ) );
+        return this;
+    }
+
+    @Override
+    public IPetrinet addTransitioin( @NonNull final String p_placebefore, @NonNull final String p_placeafter, @NonNull final Number p_capacitybefore,
+                                     @NonNull final Number p_capacityafter )
+    {
+        return this;
+    }
+
     /**
      * serializing class
      */
@@ -111,16 +128,35 @@ public final class CPetrinet implements IPetrinet
          * connections
          */
         @JsonProperty( "connection" )
-        private Map<String, String> m_connection;
+        private final Map<Map.Entry<String, String>, Number> m_connection;
         /**
          * nodes
          */
-        @JsonProperty( "nodes" )
-        private Set<INode> m_nodes;
+        @JsonProperty( "places" )
+        private final Set<IPlace> m_places;
+        /**
+         * transitions
+         */
+        @JsonProperty( "transitions" )
+        private final Set<ITransition> m_transition;
         /**
          * edges
          */
         @JsonProperty( "edges" )
-        private Set<IEdge> m_edges;
+        private final Set<IEdge> m_edges;
+
+
+        /**
+         * ctor
+         *
+         * @param p_graph graph
+         */
+        CSerializer( @NonNull final IGraph<IPetrinetNode, IConnection> p_graph )
+        {
+            m_connection = null;
+            m_edges = p_graph.edges().collect( Collectors.toSet() );
+            m_places = p_graph.nodes().parallel().filter( i -> i instanceof IPlace ).map( INode::<IPlace>raw ).collect( Collectors.toSet() );
+            m_transition = p_graph.nodes().parallel().filter( i -> i instanceof ITransition ).map( INode::<ITransition>raw ).collect( Collectors.toSet() );
+        }
     }
 }

@@ -21,25 +21,14 @@
  * @endcond
  */
 
-package de.tu_clausthal.in.mec.modeling.model.graph;
+package de.tu_clausthal.in.mec.modeling.model.petri;
 
-import edu.umd.cs.findbugs.annotations.NonNull;
+import de.tu_clausthal.in.mec.modeling.model.graph.INode;
 
 
 /**
- * interface of a graph factory
+ * petrinet node
  */
-public interface IGraphFactory
+public interface IPetrinetNode extends INode
 {
-    /**
-     * generates a graph
-     *
-     * @param p_name name / identifier of the graph
-     * @return graph object
-     *
-     * @tparam N node type
-     * @tparam E edge type
-     */
-    <N extends INode, E extends IEdge> IGraph<N, E> get( @NonNull final String p_name );
-
 }

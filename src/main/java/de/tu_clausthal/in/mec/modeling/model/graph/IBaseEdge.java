@@ -85,6 +85,13 @@ public abstract class IBaseEdge implements IEdge
         return m_id;
     }
 
+    @Override
+    @SuppressWarnings( "unchecked" )
+    public final <T extends IEdge> T raw()
+    {
+        return (T) this;
+    }
+
     @Nonnull
     @Override
     public final Number get()

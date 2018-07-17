@@ -23,8 +23,6 @@
 
 package de.tu_clausthal.in.mec.modeling.model.petri;
 
-import de.tu_clausthal.in.mec.modeling.model.graph.INode;
-
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -32,6 +30,6 @@ import java.util.stream.Stream;
 /**
  * interface of a petri-net transition
  */
-public interface ITransition extends INode, Function<Stream<IMark>, Stream<IMark>>
+public interface ITransition extends IPetrinetNode, Function<Stream<IMark>, Stream<IMark>>
 {
 }

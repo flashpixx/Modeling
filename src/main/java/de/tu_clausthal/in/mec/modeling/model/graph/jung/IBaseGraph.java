@@ -103,14 +103,14 @@ public abstract class IBaseGraph<N extends INode, E extends IEdge> implements IG
 
     @NonNull
     @Override
-    public final Stream<? extends E> edges()
+    public final Stream<E> edges()
     {
         return m_graph.getEdges().stream();
     }
 
     @NonNull
     @Override
-    public final Stream<? extends N> nodes()
+    public final Stream<N> nodes()
     {
         return m_graph.getVertices().stream();
     }
@@ -140,7 +140,7 @@ public abstract class IBaseGraph<N extends INode, E extends IEdge> implements IG
     }
 
     @Override
-    public final Stream<? extends E> shortestpath( @Nonnull final String p_start, @Nonnull final String p_end )
+    public final Stream<E> shortestpath( @Nonnull final String p_start, @Nonnull final String p_end )
     {
         return m_shortestpath.getPath( Objects.requireNonNull( m_nodes.get( p_start ) ), Objects.requireNonNull( m_nodes.get( p_end ) ) ).stream();
     }
@@ -153,58 +153,58 @@ public abstract class IBaseGraph<N extends INode, E extends IEdge> implements IG
     }
 
     @Override
-    public Stream<? extends E> inedges( @NonNull final Stream<N> p_nodes )
+    public Stream<E> inedges( @NonNull final Stream<N> p_nodes )
     {
         return p_nodes.flatMap( i -> m_graph.getInEdges( i ).stream() );
     }
 
     @Override
-    public Stream<? extends E> outedges( @NonNull final Stream<N> p_nodes )
+    public Stream<E> outedges( @NonNull final Stream<N> p_nodes )
     {
         return p_nodes.flatMap( i -> m_graph.getOutEdges( i ).stream() );
     }
 
     @Override
-    public Stream<? extends N> neighbours( @NonNull final Stream<N> p_nodes )
+    public Stream<N> neighbours( @NonNull final Stream<N> p_nodes )
     {
         return p_nodes.flatMap( i -> m_graph.getNeighbors( i ).stream() );
     }
 
     @Override
     @SuppressWarnings( "unchecked" )
-    public final Stream<? extends E> inedges( @NonNull final N... p_nodes )
+    public final Stream<E> inedges( @NonNull final N... p_nodes )
     {
         return this.inedges( Arrays.stream( p_nodes ) );
     }
 
     @Override
     @SuppressWarnings( "unchecked" )
-    public final Stream<? extends E> outedges( @NonNull final N... p_nodes )
+    public final Stream<E> outedges( @NonNull final N... p_nodes )
     {
         return this.outedges( Arrays.stream( p_nodes ) );
     }
 
     @Override
     @SuppressWarnings( "unchecked" )
-    public final Stream<? extends N> neighbours( @NonNull final N... p_nodes )
+    public final Stream<N> neighbours( @NonNull final N... p_nodes )
     {
         return this.neighbours( Arrays.stream( p_nodes ) );
     }
 
     @Override
-    public final Stream<? extends E> inedges( @NonNull final String... p_nodes )
+    public final Stream<E> inedges( @NonNull final String... p_nodes )
     {
         return this.inedges( Arrays.stream( p_nodes ).map( m_nodes::get ).filter( Objects::nonNull ) );
     }
 
     @Override
-    public final Stream<? extends E> outedges( @NonNull final String... p_nodes )
+    public final Stream<E> outedges( @NonNull final String... p_nodes )
     {
         return this.outedges( Arrays.stream( p_nodes ).map( m_nodes::get ).filter( Objects::nonNull ) );
     }
 
     @Override
-    public Stream<? extends N> neighbours( @NonNull final String... p_nodes )
+    public Stream<N> neighbours( @NonNull final String... p_nodes )
     {
         return this.neighbours( Arrays.stream( p_nodes ).map( m_nodes::get ).filter( Objects::nonNull ) );
     }

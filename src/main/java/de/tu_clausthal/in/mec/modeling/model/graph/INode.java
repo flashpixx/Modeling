@@ -38,4 +38,11 @@ public interface INode
      */
     @NonNull
     String id();
+
+    /**
+     * cast operation
+     *
+     * @return casted node
+     */
+    <T extends INode> T raw();
 }

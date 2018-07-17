@@ -23,8 +23,6 @@
 
 package de.tu_clausthal.in.mec.modeling.model.petri;
 
-import de.tu_clausthal.in.mec.modeling.model.graph.INode;
-
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -34,6 +32,6 @@ import java.util.stream.Stream;
 /**
  * interface of a petri-net place
  */
-public interface IPlace extends INode, Supplier<Number>, Function<Number, Stream<IMark>>, Consumer<Stream<IMark>>
+public interface IPlace extends IPetrinetNode, Supplier<Number>, Function<Number, Stream<IMark>>, Consumer<Stream<IMark>>
 {
 }

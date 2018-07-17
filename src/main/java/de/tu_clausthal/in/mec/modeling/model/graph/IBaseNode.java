@@ -65,4 +65,10 @@ public abstract class IBaseNode implements INode
         return m_id;
     }
 
+    @Override
+    @SuppressWarnings( "unchecked" )
+    public final <T extends INode> T raw()
+    {
+        return (T) this;
+    }
 }

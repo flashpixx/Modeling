@@ -35,7 +35,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 //Checkstyle:OFF:HideUtilityClassConstructor
 @SpringBootApplication
 @EnableAutoConfiguration
-public final class CApplication
+public class CApplication
 {
 
     /**

@@ -57,7 +57,7 @@ public interface IModel<T extends IModel<?>> extends Callable<T>
      * @tparam N target model type
      */
     @NonNull
-    <N extends IModel<T>> N raw();
+    <N extends IModel<?>> N raw();
 
     /**
      * creates an object representation for serializing
