@@ -30,9 +30,12 @@ import edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath;
 import edu.uci.ics.jung.algorithms.shortestpath.PrimMinimumSpanningTree;
 import edu.uci.ics.jung.graph.DelegateTree;
 import edu.uci.ics.jung.graph.Graph;
+import edu.uci.ics.jung.graph.util.Graphs;
+import edu.uci.ics.jung.graph.util.Pair;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 import javax.annotation.Nonnull;
+import java.util.AbstractMap;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
@@ -78,7 +81,7 @@ public abstract class IBaseGraph<N extends INode, E extends IEdge> implements IG
     protected IBaseGraph( @NonNull final String p_id, @NonNull final Graph<N, E> p_graph )
     {
         m_id = p_id;
-        m_graph = p_graph;
+        m_graph = Graphs.synchronizedGraph( p_graph );
         m_shortestpath = new DijkstraShortestPath<>( m_graph, i -> i.get().doubleValue() );
     }
 
@@ -137,6 +140,19 @@ public abstract class IBaseGraph<N extends INode, E extends IEdge> implements IG
     public final N node( @NonNull final String p_id )
     {
         return m_nodes.get( p_id );
+    }
+
+    @Override
+    public Map.Entry<N, N> endpoints( @NonNull final E p_edge )
+    {
+        final Pair<N> l_pair = m_graph.getEndpoints( p_edge );
+        return new AbstractMap.SimpleImmutableEntry<>( l_pair.getFirst(), l_pair.getSecond() );
+    }
+
+    @Override
+    public Map.Entry<N, N> endpoints( @NonNull final String p_edge )
+    {
+        return this.endpoints( Objects.requireNonNull( m_edges.get( p_edge ) ) );
     }
 
     @Override
@@ -254,7 +270,10 @@ public abstract class IBaseGraph<N extends INode, E extends IEdge> implements IG
     @Override
     public IGraph<N, E> addedge( @NonNull final N p_start, @NonNull final N p_end, @NonNull final E p_edge )
     {
-        m_graph.addEdge( m_edges.putIfAbsent( p_edge.id(), p_edge ), m_nodes.putIfAbsent( p_start.id(), p_start ), m_nodes.putIfAbsent( p_end.id(), p_end ) );
+        m_edges.put( p_edge.id(), p_edge );
+        m_nodes.put( p_start.id(), p_start );
+        m_nodes.put( p_end.id(), p_end );
+        m_graph.addEdge( p_edge, p_start, p_end );
         return this;
     }
 

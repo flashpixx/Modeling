@@ -23,6 +23,7 @@
 
 package de.tu_clausthal.in.mec.modeling.model.graph;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 
@@ -34,6 +35,7 @@ public abstract class IBaseNode implements INode
     /**
      * id of the node
      */
+    @JsonProperty( "id" )
     protected final String m_id;
 
     /**

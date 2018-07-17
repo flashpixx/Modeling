@@ -69,7 +69,7 @@ public final class CPetrinetController
      * @return petrinet structure
      */
     @RequestMapping( value = "/get/{net}" )
-    public Object get( @PathVariable( "name" ) final String p_net )
+    public Object get( @PathVariable( "net" ) final String p_net )
     {
         return EModelStorage.INSTANCE.apply( p_net ).serialize();
     }
@@ -84,6 +84,26 @@ public final class CPetrinetController
     public Object place( @PathVariable( "net" ) final String p_net, @PathVariable( "place" ) final String p_place, @PathVariable( "capacity" ) final Number p_capacity )
     {
         return EModelStorage.INSTANCE.apply( p_net ).<IPetrinet>raw().addPlace( p_place, p_capacity ).serialize();
+    }
+
+    /**
+     * add transition
+     *
+     * @param p_net name
+     * @return petrinet structure
+     */
+    @RequestMapping( value = "/transition/{net}/{transition}" )
+    public Object transition( @PathVariable( "net" ) final String p_net, @PathVariable( "transition" ) final String p_transition )
+    {
+        return EModelStorage.INSTANCE.apply( p_net ).<IPetrinet>raw().addTransition( p_transition ).serialize();
+    }
+
+    @RequestMapping( value = "/connect/{net}/{connection}/{source}/{target}/{capacity}" )
+    public Object transition( @PathVariable( "net" ) final String p_net, @PathVariable( "connection" ) final String p_connection,
+                              @PathVariable( "source" ) final String p_source, @PathVariable( "target" ) final String p_target,
+                              @PathVariable( "capacity" ) final Number p_capacity )
+    {
+        return EModelStorage.INSTANCE.apply( p_net ).<IPetrinet>raw().connect( p_connection, p_source, p_target, p_capacity ).serialize();
     }
 
     /**

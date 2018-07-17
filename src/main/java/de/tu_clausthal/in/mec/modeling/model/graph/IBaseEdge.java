@@ -24,6 +24,7 @@
 package de.tu_clausthal.in.mec.modeling.model.graph;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 import javax.annotation.Nonnull;
@@ -38,6 +39,7 @@ public abstract class IBaseEdge implements IEdge
     /**
      * id of the edge
      */
+    @JsonProperty( "id" )
     protected final String m_id;
     /**
      * weight function

@@ -32,6 +32,7 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 
 import javax.annotation.Nonnegative;
 import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -144,17 +145,17 @@ public final class CPetrinet implements IPetrinet
          * connections
          */
         @JsonProperty( "edges" )
-        private final Map<Map.Entry<String, String>, Number> m_connection;
+        private final Set<Map<String, Object>> m_connection;
         /**
          * nodes
          */
         @JsonProperty( "places" )
-        private final Set<IPlace> m_places;
+        private final Map<String, IPlace> m_places;
         /**
          * transitions
          */
         @JsonProperty( "transitions" )
-        private final Set<ITransition> m_transition;
+        private final Map<String, ITransition> m_transition;
 
 
         /**
@@ -164,19 +165,31 @@ public final class CPetrinet implements IPetrinet
          */
         CSerializer( @NonNull final IGraph<IPetrinetNode, IPetrinetEdge> p_graph )
         {
-            m_connection = null;
+            m_connection = p_graph.edges()
+                                  .map( i ->
+                                  {
+                                      final Map.Entry<IPetrinetNode, IPetrinetNode> l_endpoints = p_graph.endpoints( i );
+
+                                      final Map<String, Object> l_map = new HashMap<>();
+                                      l_map.put( "from", l_endpoints.getKey().id() );
+                                      l_map.put( "to", l_endpoints.getValue().id() );
+                                      l_map.put( "capacity", i.get() );
+
+                                      return l_map;
+                                  } )
+                                  .collect( Collectors.toSet() );
 
             m_places = p_graph.nodes()
                               .parallel()
                               .filter( i -> i instanceof IPlace )
                               .map( INode::<IPlace>raw )
-                              .collect( Collectors.toSet() );
+                              .collect( Collectors.toMap( INode::id, i -> i ) );
 
             m_transition = p_graph.nodes()
                                   .parallel()
                                   .filter( i -> i instanceof ITransition )
                                   .map( INode::<ITransition>raw )
-                                  .collect( Collectors.toSet() );
+                                  .collect( Collectors.toMap( INode::id, i -> i ) );
         }
     }
 }

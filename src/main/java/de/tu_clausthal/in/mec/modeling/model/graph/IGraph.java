@@ -27,6 +27,7 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Map;
 import java.util.stream.Stream;
 
 
@@ -94,6 +95,22 @@ public interface IGraph<N extends INode, E extends IEdge>
      */
     @NonNull
     Stream<N> nodes();
+
+    /**
+     * returns the endpoints of a edge
+     *
+     * @param p_edge edge
+     * @return endpoints
+     */
+    Map.Entry<N, N> endpoints( @NonNull final E p_edge );
+
+    /**
+     * returns the endpoints of a edge
+     *
+     * @param p_edge edge id
+     * @return endpoints
+     */
+    Map.Entry<N, N> endpoints( @NonNull final String p_edge );
 
     /**
      * calculates the shortest path between two nodes
