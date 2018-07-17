@@ -127,7 +127,7 @@ public final class CPetrinet implements IPetrinet
         /**
          * connections
          */
-        @JsonProperty( "connection" )
+        @JsonProperty( "edges" )
         private final Map<Map.Entry<String, String>, Number> m_connection;
         /**
          * nodes
@@ -139,11 +139,6 @@ public final class CPetrinet implements IPetrinet
          */
         @JsonProperty( "transitions" )
         private final Set<ITransition> m_transition;
-        /**
-         * edges
-         */
-        @JsonProperty( "edges" )
-        private final Set<IEdge> m_edges;
 
 
         /**
@@ -154,7 +149,6 @@ public final class CPetrinet implements IPetrinet
         CSerializer( @NonNull final IGraph<IPetrinetNode, IConnection> p_graph )
         {
             m_connection = null;
-            m_edges = p_graph.edges().collect( Collectors.toSet() );
 
             m_places = p_graph.nodes()
                               .parallel()
