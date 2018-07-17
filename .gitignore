@@ -6,6 +6,7 @@
 !system.properties
 !pom.xml
 !*.java
+!*.g4
 
 !src/main/resources/static/*.html
 !src/main/resources/static/*.css
