@@ -21,21 +21,14 @@
  * @endcond
  */
 
-package de.tu_clausthal.in.mec.modeling.model.compare;
+package de.tu_clausthal.in.mec.modeling.model.petrinet;
 
 import de.tu_clausthal.in.mec.modeling.model.graph.IEdge;
-import de.tu_clausthal.in.mec.modeling.model.graph.IGraph;
-import de.tu_clausthal.in.mec.modeling.model.graph.INode;
-
-import java.util.function.BiFunction;
 
 
 /**
- * interface
- *
- * @tparam N node type
- * @tparam E edge type
+ * connection / edge interface between transition and place
  */
-public interface ICompare<N extends INode, E extends IEdge> extends BiFunction<IGraph<N, E>, IGraph<N, E>, Number>
+public interface IPetrinetEdge extends IEdge
 {
 }

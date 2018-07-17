@@ -21,29 +21,20 @@
  * @endcond
  */
 
-package de.tu_clausthal.in.mec.modeling.model.compare;
+package de.tu_clausthal.in.mec.modeling.model.petrinet;
 
-import de.tu_clausthal.in.mec.modeling.model.graph.IEdge;
-import de.tu_clausthal.in.mec.modeling.model.graph.INode;
-
-import javax.annotation.Nonnull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 
 /**
- * interface of graph comparators
+ * petrinet model checker
  */
-public interface ICompareSupplier
+public final class CPetrinetChecker implements IPetrinetChecker
 {
 
-    /**
-     * returns a comparator object
-     *
-     * @return comparator object
-     *
-     * @tparam N node type
-     * @tparam E edge type
-     */
-    @Nonnull
-    <N extends INode, E extends IEdge> ICompare<N, E> get();
-
+    @Override
+    public Number apply( @NonNull final IPetrinet p_target, @NonNull final IPetrinet p_source )
+    {
+        return 0;
+    }
 }

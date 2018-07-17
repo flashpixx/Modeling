@@ -25,7 +25,6 @@ package de.tu_clausthal.in.mec.modeling.model.petrinet;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import de.tu_clausthal.in.mec.modeling.model.IModel;
-import de.tu_clausthal.in.mec.modeling.model.graph.IEdge;
 import de.tu_clausthal.in.mec.modeling.model.graph.IGraph;
 import de.tu_clausthal.in.mec.modeling.model.graph.INode;
 import de.tu_clausthal.in.mec.modeling.model.graph.jung.CDirectedGraph;
@@ -46,7 +45,7 @@ public final class CPetrinet implements IPetrinet
     /**
      * graph structure
      */
-    private final IGraph<IPetrinetNode, IConnection> m_network;
+    private final IGraph<IPetrinetNode, IPetrinetEdge> m_network;
 
     /**
      * ctor
@@ -146,7 +145,7 @@ public final class CPetrinet implements IPetrinet
          *
          * @param p_graph graph
          */
-        CSerializer( @NonNull final IGraph<IPetrinetNode, IConnection> p_graph )
+        CSerializer( @NonNull final IGraph<IPetrinetNode, IPetrinetEdge> p_graph )
         {
             m_connection = null;
 

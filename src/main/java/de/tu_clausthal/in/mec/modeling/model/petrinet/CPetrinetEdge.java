@@ -21,28 +21,36 @@
  * @endcond
  */
 
-package de.tu_clausthal.in.mec.modeling.model.compare;
+package de.tu_clausthal.in.mec.modeling.model.petrinet;
 
-import de.tu_clausthal.in.mec.modeling.model.graph.IEdge;
-import de.tu_clausthal.in.mec.modeling.model.graph.INode;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import de.tu_clausthal.in.mec.modeling.model.graph.IBaseEdge;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
-import java.text.MessageFormat;
+import javax.annotation.Nonnegative;
 
 
 /**
- * comparator factory
+ * connection class
  */
-public enum EFactory implements ICompareSupplier
+public final class CPetrinetEdge extends IBaseEdge implements IPetrinetEdge
 {
-    PETRINET;
+    /**
+     * capacity
+     */
+    @JsonProperty( "capacity" )
+    private final Number m_capacity;
 
-    @Override
-    public <N extends INode, E extends IEdge> ICompare<N, E> get()
+    /**
+     * ctor
+     *
+     * @param p_id edge name
+     * @param p_capacity capacity
+     */
+    public CPetrinetEdge( @NonNull final String p_id, @Nonnegative @NonNull final Number p_capacity )
     {
-        switch ( this )
-        {
-            default:
-                throw new RuntimeException( MessageFormat.format( "unknown factory for [{0}]", this ) );
-        }
+        super( p_id, () -> p_capacity );
+        m_capacity = p_capacity;
     }
+
 }

@@ -23,6 +23,7 @@
 
 package de.tu_clausthal.in.mec.modeling.controller;
 
+import de.tu_clausthal.in.mec.modeling.model.petrinet.CPetrinetChecker;
 import de.tu_clausthal.in.mec.modeling.model.petrinet.IPetrinet;
 import de.tu_clausthal.in.mec.modeling.model.storage.EModelStorage;
 import de.tu_clausthal.in.mec.modeling.model.petrinet.CPetrinet;
@@ -83,5 +84,19 @@ public final class CPetrinetController
     public Object place( @PathVariable( "net" ) final String p_net, @PathVariable( "place" ) final String p_place, @PathVariable( "capacity" ) final Number p_capacity )
     {
         return EModelStorage.INSTANCE.apply( p_net ).<IPetrinet>raw().addPlace( p_place, p_capacity ).serialize();
+    }
+
+    /**
+     * execute model checking
+     *
+     * @return hcecking result
+     */
+    @RequestMapping( value = "/check/{target}/{source}" )
+    public Object check( @PathVariable( "target" ) final String p_target, @PathVariable( "source" ) final String p_source )
+    {
+        return new CPetrinetChecker().apply(
+            EModelStorage.INSTANCE.apply( p_target ).raw(),
+            EModelStorage.INSTANCE.apply( p_source ).raw()
+        );
     }
 }

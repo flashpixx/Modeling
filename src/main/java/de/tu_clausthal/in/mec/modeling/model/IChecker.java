@@ -21,14 +21,17 @@
  * @endcond
  */
 
-package de.tu_clausthal.in.mec.modeling.model.petrinet;
+package de.tu_clausthal.in.mec.modeling.model;
 
-import de.tu_clausthal.in.mec.modeling.model.graph.IEdge;
+
+import java.util.function.BiFunction;
 
 
 /**
- * connection / edge interface between transition and place
+ * model checker interface
+ *
+ * @tparam T model type
  */
-public interface IConnection extends IEdge
+public interface IChecker<T extends IModel<?>> extends BiFunction<T, T, Number>
 {
 }
