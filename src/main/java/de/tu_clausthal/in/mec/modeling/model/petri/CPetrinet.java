@@ -23,21 +23,29 @@
 
 package de.tu_clausthal.in.mec.modeling.model.petri;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.tu_clausthal.in.mec.modeling.model.IModel;
+import de.tu_clausthal.in.mec.modeling.model.graph.IEdge;
 import de.tu_clausthal.in.mec.modeling.model.graph.IGraph;
+import de.tu_clausthal.in.mec.modeling.model.graph.INode;
 import de.tu_clausthal.in.mec.modeling.model.graph.jung.CDirectedGraph;
 import edu.umd.cs.findbugs.annotations.NonNull;
+
+import java.util.Map;
+import java.util.Set;
 
 
 /**
  * petrinet model
+ *
+ * @todo call and terminate not implemented yet
  */
 public final class CPetrinet implements IPetrinet
 {
     /**
      * graph structure
      */
-    private final IGraph<IPlace, ILinkage> m_network;
+    private final IGraph<IPlace, IConnection> m_network;
 
     /**
      * ctor
@@ -58,14 +66,22 @@ public final class CPetrinet implements IPetrinet
     @Override
     public boolean terminated()
     {
-        return false;
+        return true;
     }
 
+    @NonNull
     @Override
     @SuppressWarnings( "unchecked" )
     public <N extends IModel<IPetrinet>> N raw()
     {
         return (N) this;
+    }
+
+    @NonNull
+    @Override
+    public Object serialize()
+    {
+        return new CSerializer();
     }
 
     @Override
@@ -84,5 +100,27 @@ public final class CPetrinet implements IPetrinet
     public boolean equals( final Object p_object )
     {
         return p_object instanceof IModel<?> && p_object.hashCode() == this.hashCode();
+    }
+
+    /**
+     * serializing class
+     */
+    private static final class CSerializer
+    {
+        /**
+         * connections
+         */
+        @JsonProperty( "connection" )
+        private Map<String, String> m_connection;
+        /**
+         * nodes
+         */
+        @JsonProperty( "nodes" )
+        private Set<INode> m_nodes;
+        /**
+         * edges
+         */
+        @JsonProperty( "edges" )
+        private Set<IEdge> m_edges;
     }
 }

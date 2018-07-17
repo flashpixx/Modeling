@@ -21,29 +21,34 @@
  * @endcond
  */
 
-package de.tu_clausthal.in.mec.modeling.controller;
+package de.tu_clausthal.in.mec.modeling.model.storage;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import de.tu_clausthal.in.mec.modeling.model.IModel;
+import edu.umd.cs.findbugs.annotations.NonNull;
+
+import java.util.function.Function;
 
 
 /**
- * petri-net rest controller
+ * interface for model storage
  */
-@RestController
-@RequestMapping( "/petrinet" )
-public final class CPetrinet
+public interface IModelStorage extends Function<String, IModel<?>>
 {
     /**
-     * creates a new petrinet
+     * adds a new model
      *
-     * @param p_name name
+     * @param p_model model
+     * @return model
      */
-    @RequestMapping( value = "/create/{name}" )
-    public void create( @PathVariable( "name" ) final String p_name )
-    {
-        System.out.println( "model created" );
-    }
+    @NonNull
+    IModel<?> add( @NonNull final IModel<?> p_model );
 
+    /**
+     * removes a model
+     *
+     * @param p_id id
+     * @return removed model
+     */
+    @NonNull
+    IModel<?> remove( @NonNull final String p_id );
 }

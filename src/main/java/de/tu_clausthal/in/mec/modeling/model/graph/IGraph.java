@@ -80,16 +80,6 @@ public interface IGraph<N extends INode, E extends IEdge>
     N node( @NonNull final String p_id );
 
     /**
-     * adds an edge with nodes to the graph
-     *
-     * @param p_start start node
-     * @param p_end end node
-     * @param p_edge edge
-     * @return self-reference
-     */
-    IGraph<N, E> add( @NonNull final N p_start, @NonNull final N p_end, @NonNull final E p_edge );
-
-    /**
      * stream over all edges
      *
      * @return edge stream
@@ -121,7 +111,6 @@ public interface IGraph<N extends INode, E extends IEdge>
      * @return new graph
      */
     IGraph<N, E> spanningtree( @Nonnull final String p_id );
-
 
     /**
      * returns a stream of all in-edges of a node
@@ -197,5 +186,84 @@ public interface IGraph<N extends INode, E extends IEdge>
      * @return node stream
      */
     Stream<? extends N> neighbours( @NonNull final String... p_nodes );
+
+    /**
+     * removes an edge stream from graph
+     *
+     * @param p_edges edge stream
+     * @return self-reference
+     */
+    IGraph<N, E> removeedge( @NonNull final Stream<E> p_edges );
+
+    /**
+     * removes edges from the graph
+     *
+     * @param p_edges edges
+     * @return self-reference
+     */
+    @SuppressWarnings( "unchecked" )
+    IGraph<N, E> removeedge( @NonNull final E... p_edges );
+
+    /**
+     * removes edge by name from the graph
+     *
+     * @param p_edges  edges
+     * @return self-references
+     */
+    @SuppressWarnings( "unchecked" )
+    IGraph<N, E> removeedge( @NonNull final String... p_edges );
+
+    /**
+     * removes an node stream from graph
+     *
+     * @param p_nodes node stream
+     * @return self-reference
+     */
+    IGraph<N, E> removenode( @NonNull final Stream<N> p_nodes );
+
+    /**
+     * removes node from the graph
+     *
+     * @param p_nodes nodes
+     * @return self-reference
+     */
+    @SuppressWarnings( "unchecked" )
+    IGraph<N, E> removenode( @NonNull final N... p_nodes );
+
+    /**
+     * removes node by name from the graph
+     *
+     * @param p_nodes nodes
+     * @return self-references
+     */
+    @SuppressWarnings( "unchecked" )
+    IGraph<N, E> removenode( @NonNull final String... p_nodes );
+
+    /**
+     * adds an edge with nodes to the graph
+     *
+     * @param p_start start node
+     * @param p_end end node
+     * @param p_edge edge
+     * @return self-reference
+     */
+    IGraph<N, E> addedge( @NonNull final N p_start, @NonNull final N p_end, @NonNull final E p_edge );
+
+    /**
+     * adds a strem of nodes
+     *
+     * @param p_nodes node stream
+     * @return self-reference
+     */
+    IGraph<N, E> addnode( @NonNull final Stream<N> p_nodes );
+
+    /**
+     * adds nodes
+     *
+     * @param p_nodes nodes
+     * @return self-reference
+     */
+    @SuppressWarnings( "unchecked" )
+    IGraph<N, E> addnode( @NonNull final N... p_nodes );
 
 }

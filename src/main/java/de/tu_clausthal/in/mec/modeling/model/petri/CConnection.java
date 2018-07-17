@@ -30,9 +30,9 @@ import javax.annotation.Nonnegative;
 
 
 /**
- * linkage class
+ * connection class
  */
-public final class CLinkage extends IBaseEdge implements ILinkage
+public final class CConnection extends IBaseEdge implements IConnection
 {
     /**
      * ctor
@@ -40,7 +40,7 @@ public final class CLinkage extends IBaseEdge implements ILinkage
      * @param p_id edge name
      * @param p_capacity capacity
      */
-    public CLinkage( @NonNull final String p_id, @Nonnegative @NonNull final Number p_capacity )
+    public CConnection( @NonNull final String p_id, @Nonnegative @NonNull final Number p_capacity )
     {
         super( p_id, () -> p_capacity );
     }

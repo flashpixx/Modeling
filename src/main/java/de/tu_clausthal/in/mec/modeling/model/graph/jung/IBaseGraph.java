@@ -140,13 +140,6 @@ public abstract class IBaseGraph<N extends INode, E extends IEdge> implements IG
     }
 
     @Override
-    public IGraph<N, E> add( @NonNull final N p_start, @NonNull final N p_end, @NonNull final E p_edge )
-    {
-        m_graph.addEdge( m_edges.putIfAbsent( p_edge.id(), p_edge ), m_nodes.putIfAbsent( p_start.id(), p_start ), m_nodes.putIfAbsent( p_end.id(), p_end ) );
-        return this;
-    }
-
-    @Override
     public final Stream<? extends E> shortestpath( @Nonnull final String p_start, @Nonnull final String p_end )
     {
         return m_shortestpath.getPath( Objects.requireNonNull( m_nodes.get( p_start ) ), Objects.requireNonNull( m_nodes.get( p_end ) ) ).stream();
@@ -214,6 +207,69 @@ public abstract class IBaseGraph<N extends INode, E extends IEdge> implements IG
     public Stream<? extends N> neighbours( @NonNull final String... p_nodes )
     {
         return this.neighbours( Arrays.stream( p_nodes ).map( m_nodes::get ).filter( Objects::nonNull ) );
+    }
+
+    @Override
+    @SuppressWarnings( "unchecked" )
+    public IGraph<N, E> removeedge( @NonNull final Stream<E> p_edges )
+    {
+        p_edges.peek( i -> m_edges.remove( i.id() ) ).forEach( m_graph::removeEdge );
+        return this;
+    }
+
+    @Override
+    @SuppressWarnings( "unchecked" )
+    public IGraph<N, E> removeedge( @NonNull final E... p_edges )
+    {
+        return this.removeedge( Arrays.stream( p_edges ) );
+    }
+
+    @Override
+    public IGraph<N, E> removeedge( @NonNull final String... p_edges )
+    {
+        return this.removeedge( Arrays.stream( p_edges ).map( m_edges::get ).filter( Objects::nonNull ) );
+    }
+
+    @Override
+    public IGraph<N, E> removenode( @NonNull final Stream<N> p_nodes )
+    {
+        p_nodes.peek( i -> m_nodes.remove( i.id() ) ).forEach( m_graph::removeVertex );
+        return this;
+    }
+
+    @Override
+    @SuppressWarnings( "unchecked" )
+    public IGraph<N, E> removenode( @NonNull final N... p_nodes )
+    {
+        return this.removenode( Arrays.stream( p_nodes ) );
+    }
+
+    @Override
+    @SuppressWarnings( "unchecked" )
+    public IGraph<N, E> removenode( @NonNull final String... p_nodes )
+    {
+        return this.removenode( Arrays.stream( p_nodes ).map( m_nodes::get ).filter( Objects::nonNull ) );
+    }
+
+    @Override
+    public IGraph<N, E> addedge( @NonNull final N p_start, @NonNull final N p_end, @NonNull final E p_edge )
+    {
+        m_graph.addEdge( m_edges.putIfAbsent( p_edge.id(), p_edge ), m_nodes.putIfAbsent( p_start.id(), p_start ), m_nodes.putIfAbsent( p_end.id(), p_end ) );
+        return this;
+    }
+
+    @Override
+    public IGraph<N, E> addnode( @NonNull final Stream<N> p_nodes )
+    {
+        p_nodes.peek( i -> m_nodes.put( i.id(), i ) ).forEach( m_graph::addVertex );
+        return this;
+    }
+
+    @Override
+    @SuppressWarnings( "unchecked" )
+    public IGraph<N, E> addnode( @NonNull final N... p_nodes )
+    {
+        return this.addnode( Arrays.stream( p_nodes ) );
     }
 
     /**

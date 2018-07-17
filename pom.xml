@@ -135,6 +135,9 @@
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>3.9.0</version>
                 <configuration>
+                    <excludes>
+                        <exclude>**/generated/*.java</exclude>
+                    </excludes>
                     <linkXRef>false</linkXRef>
                 </configuration>     
             </plugin>                 
@@ -153,12 +156,13 @@
                 </reportSets>
             </plugin>
 
+            <!--
             <plugin>
                 <groupId>de.flashpixx</groupId>
                 <artifactId>rrd-antlr4</artifactId>
                 <version>0.0.1</version>
             </plugin>
-
+            -->
         </plugins>
 
     </reporting>

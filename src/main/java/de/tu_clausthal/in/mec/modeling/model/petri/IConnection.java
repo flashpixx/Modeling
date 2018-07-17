@@ -21,49 +21,14 @@
  * @endcond
  */
 
-package de.tu_clausthal.in.mec.modeling.model;
+package de.tu_clausthal.in.mec.modeling.model.petri;
 
-import edu.umd.cs.findbugs.annotations.NonNull;
-
-import java.util.concurrent.Callable;
+import de.tu_clausthal.in.mec.modeling.model.graph.IEdge;
 
 
 /**
- * interface of a model
- *
- * @tparam T model type
+ * connection / edge interface between transition and place
  */
-public interface IModel<T extends IModel<?>> extends Callable<T>
+public interface IConnection extends IEdge
 {
-    /**
-     * returns the model id
-     *
-     * @return id
-     */
-    String id();
-
-    /**
-     * flag for model is terminated
-     *
-     * @return terminate flag
-     */
-    boolean terminated();
-
-    /**
-     * casting method to cast a model into its subtype
-     *
-     * @return model
-     *
-     * @tparam N target model type
-     */
-    @NonNull
-    <N extends IModel<T>> N raw();
-
-    /**
-     * creates an object representation for serializing
-     *
-     * @return any object
-     */
-    @NonNull
-    Object serialize();
 }

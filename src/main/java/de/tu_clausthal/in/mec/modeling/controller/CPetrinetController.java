@@ -21,14 +21,54 @@
  * @endcond
  */
 
-package de.tu_clausthal.in.mec.modeling.model.petri;
+package de.tu_clausthal.in.mec.modeling.controller;
 
-import de.tu_clausthal.in.mec.modeling.model.graph.IEdge;
+import de.tu_clausthal.in.mec.modeling.model.storage.EModelStorage;
+import de.tu_clausthal.in.mec.modeling.model.petri.CPetrinet;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 
 /**
- * linkage interface between transition and place
+ * petri-net rest controller
  */
-public interface ILinkage extends IEdge
+@RestController
+@RequestMapping( "/petrinet" )
+public final class CPetrinetController
 {
+    /**
+     * creates a new petrinet
+     *
+     * @param p_name name
+     */
+    @RequestMapping( value = "/create/{name}" )
+    public void create( @PathVariable( "name" ) final String p_name )
+    {
+        EModelStorage.INSTANCE.add( new CPetrinet( p_name ) ).serialize();
+    }
+
+    /**
+     * remove petrinet
+     *
+     * @param p_name name
+     */
+    @RequestMapping( value = "/remove/{name}" )
+    public void remove( @PathVariable( "name" ) final String p_name )
+    {
+        EModelStorage.INSTANCE.add( new CPetrinet( p_name ) );
+    }
+
+    /**
+     * get petrinet
+     *
+     * @param p_name name
+     * @return petrinet structure
+     */
+    @RequestMapping( value = "/get/{name}" )
+    public Object get( @PathVariable( "name" ) final String p_name )
+    {
+        return EModelStorage.INSTANCE.apply( p_name ).serialize();
+    }
+
 }
