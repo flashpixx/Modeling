@@ -23,9 +23,9 @@
 
 package de.tu_clausthal.in.mec.modeling.controller;
 
-import de.tu_clausthal.in.mec.modeling.model.petri.IPetrinet;
+import de.tu_clausthal.in.mec.modeling.model.petrinet.IPetrinet;
 import de.tu_clausthal.in.mec.modeling.model.storage.EModelStorage;
-import de.tu_clausthal.in.mec.modeling.model.petri.CPetrinet;
+import de.tu_clausthal.in.mec.modeling.model.petrinet.CPetrinet;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

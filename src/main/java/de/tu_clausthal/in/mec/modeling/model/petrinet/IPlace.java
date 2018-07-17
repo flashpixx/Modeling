@@ -21,11 +21,17 @@
  * @endcond
  */
 
-package de.tu_clausthal.in.mec.modeling.model.petri;
+package de.tu_clausthal.in.mec.modeling.model.petrinet;
+
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
+
 
 /**
- * interface of an petrinet mark
+ * interface of a petri-net place
  */
-public interface IMark
+public interface IPlace extends IPetrinetNode, Supplier<Number>, Function<Number, Stream<IMark>>, Consumer<Stream<IMark>>
 {
 }

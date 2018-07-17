@@ -21,42 +21,15 @@
  * @endcond
  */
 
-package de.tu_clausthal.in.mec.modeling.model.petri;
+package de.tu_clausthal.in.mec.modeling.model.petrinet;
 
-import de.tu_clausthal.in.mec.modeling.model.IModel;
-import edu.umd.cs.findbugs.annotations.NonNull;
-
-import javax.annotation.Nonnegative;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 
 /**
- * interface of a petrinet
+ * interface of a petri-net transition
  */
-public interface IPetrinet extends IModel<IPetrinet>
+public interface ITransition extends IPetrinetNode, Function<Stream<IMark>, Stream<IMark>>
 {
-    /**
-     * adds a place
-     *
-     * @param p_id name
-     * @param p_capacity capacity
-     * @return self-reference
-     */
-    IPetrinet addPlace( @NonNull String p_id, @NonNull @Nonnegative Number p_capacity );
-
-    /**
-     * adds a transition
-     *
-     * @param p_placebefore id place before
-     * @param p_placeafter id place after
-     * @param p_capacitybefore capacity before
-     * @param p_capacityafter capacity after
-     * @return self-reference
-     */
-    IPetrinet addTransitioin(
-        @NonNull final String p_placebefore,
-        @NonNull final String p_placeafter,
-        @NonNull @Nonnegative final Number p_capacitybefore,
-        @NonNull @Nonnegative final Number p_capacityafter
-    );
-
 }

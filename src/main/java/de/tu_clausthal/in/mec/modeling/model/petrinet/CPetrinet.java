@@ -21,7 +21,7 @@
  * @endcond
  */
 
-package de.tu_clausthal.in.mec.modeling.model.petri;
+package de.tu_clausthal.in.mec.modeling.model.petrinet;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import de.tu_clausthal.in.mec.modeling.model.IModel;

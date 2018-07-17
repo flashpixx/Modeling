@@ -21,14 +21,33 @@
  * @endcond
  */
 
-package de.tu_clausthal.in.mec.modeling.model.petri;
+package de.tu_clausthal.in.mec.modeling.model.petrinet;
 
-import de.tu_clausthal.in.mec.modeling.model.graph.INode;
+import de.tu_clausthal.in.mec.modeling.model.graph.IBaseNode;
+import edu.umd.cs.findbugs.annotations.NonNull;
+
+import java.util.stream.Stream;
 
 
 /**
- * petrinet node
+ * transition class
  */
-public interface IPetrinetNode extends INode
+public final class CTransition extends IBaseNode implements ITransition
 {
+    /**
+     * ctor
+     *
+     * @param p_id transition id
+     */
+    public CTransition( @NonNull final String p_id )
+    {
+        super( p_id );
+    }
+
+    @Override
+    public final Stream<IMark> apply( @NonNull final Stream<IMark> p_stream )
+    {
+        return p_stream;
+    }
+
 }

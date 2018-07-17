@@ -21,15 +21,14 @@
  * @endcond
  */
 
-package de.tu_clausthal.in.mec.modeling.model.petri;
+package de.tu_clausthal.in.mec.modeling.model.petrinet;
 
-import java.util.function.Function;
-import java.util.stream.Stream;
+import de.tu_clausthal.in.mec.modeling.model.graph.INode;
 
 
 /**
- * interface of a petri-net transition
+ * petrinet node
  */
-public interface ITransition extends IPetrinetNode, Function<Stream<IMark>, Stream<IMark>>
+public interface IPetrinetNode extends INode
 {
 }

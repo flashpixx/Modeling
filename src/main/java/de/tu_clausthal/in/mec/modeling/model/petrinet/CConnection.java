@@ -21,33 +21,28 @@
  * @endcond
  */
 
-package de.tu_clausthal.in.mec.modeling.model.petri;
+package de.tu_clausthal.in.mec.modeling.model.petrinet;
 
-import de.tu_clausthal.in.mec.modeling.model.graph.IBaseNode;
+import de.tu_clausthal.in.mec.modeling.model.graph.IBaseEdge;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
-import java.util.stream.Stream;
+import javax.annotation.Nonnegative;
 
 
 /**
- * transition class
+ * connection class
  */
-public final class CTransition extends IBaseNode implements ITransition
+public final class CConnection extends IBaseEdge implements IConnection
 {
     /**
      * ctor
      *
-     * @param p_id transition id
+     * @param p_id edge name
+     * @param p_capacity capacity
      */
-    public CTransition( @NonNull final String p_id )
+    public CConnection( @NonNull final String p_id, @Nonnegative @NonNull final Number p_capacity )
     {
-        super( p_id );
-    }
-
-    @Override
-    public final Stream<IMark> apply( @NonNull final Stream<IMark> p_stream )
-    {
-        return p_stream;
+        super( p_id, () -> p_capacity );
     }
 
 }
