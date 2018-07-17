@@ -52,29 +52,6 @@ public final class CPetrinetController
     }
 
     /**
-     * remove petrinet
-     *
-     * @param p_net name
-     */
-    @RequestMapping( value = "/remove/{net}" )
-    public void remove( @PathVariable( "net" ) final String p_net )
-    {
-        EModelStorage.INSTANCE.remove( p_net );
-    }
-
-    /**
-     * get petrinet
-     *
-     * @param p_net name
-     * @return petrinet structure
-     */
-    @RequestMapping( value = "/get/{net}" )
-    public Object get( @PathVariable( "net" ) final String p_net )
-    {
-        return EModelStorage.INSTANCE.apply( p_net ).serialize();
-    }
-
-    /**
      * add place
      *
      * @param p_net name
