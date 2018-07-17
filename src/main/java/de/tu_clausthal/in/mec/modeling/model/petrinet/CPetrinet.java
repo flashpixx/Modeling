@@ -30,6 +30,8 @@ import de.tu_clausthal.in.mec.modeling.model.graph.INode;
 import de.tu_clausthal.in.mec.modeling.model.graph.jung.CDirectedGraph;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
+import javax.annotation.Nonnegative;
+import java.text.MessageFormat;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -105,16 +107,31 @@ public final class CPetrinet implements IPetrinet
     }
 
     @Override
-    public IPetrinet addPlace( @NonNull final String p_id, @NonNull final Number p_capacity )
+    public IPetrinet addTransition( @NonNull final String p_id )
+    {
+        m_network.addnode( new CTransition( p_id ) );
+        return this;
+    }
+
+    @Override
+    public IPetrinet addPlace( @NonNull final String p_id, @NonNull @Nonnegative final Number p_capacity )
     {
         m_network.addnode( new CPlace( p_id, p_capacity ) );
         return this;
     }
 
     @Override
-    public IPetrinet addTransitioin( @NonNull final String p_placebefore, @NonNull final String p_placeafter, @NonNull final Number p_capacitybefore,
-                                     @NonNull final Number p_capacityafter )
+    public IPetrinet connect( @NonNull final String  p_id, @NonNull final String p_source, @NonNull final String p_target, @NonNull @Nonnegative final Number p_capacity )
     {
+        final IPetrinetNode l_source = m_network.node( p_source );
+        final IPetrinetNode l_target = m_network.node( p_target );
+
+        if ( !( l_source instanceof IPlace && l_target instanceof ITransition || l_source instanceof ITransition && l_target instanceof IPlace ) )
+            throw new RuntimeException(
+                MessageFormat.format( "source [{0}] and target [{1}] must be a place and a transition or a transition and a place", p_source, p_target )
+            );
+
+        m_network.addedge( l_source, l_target, new CPetrinetEdge( p_id, p_capacity ) );
         return this;
     }
 

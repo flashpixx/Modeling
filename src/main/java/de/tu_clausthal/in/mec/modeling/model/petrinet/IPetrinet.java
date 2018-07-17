@@ -35,28 +35,31 @@ import javax.annotation.Nonnegative;
 public interface IPetrinet extends IModel<IPetrinet>
 {
     /**
+     * adds a transition
+     *
+     * @param p_id name
+     * @return self-reference
+     */
+    IPetrinet addTransition( @NonNull final String p_id );
+
+    /**
      * adds a place
      *
      * @param p_id name
      * @param p_capacity capacity
      * @return self-reference
      */
-    IPetrinet addPlace( @NonNull String p_id, @NonNull @Nonnegative Number p_capacity );
+    IPetrinet addPlace( @NonNull final String p_id, @NonNull @Nonnegative final Number p_capacity );
 
     /**
-     * adds a transition
+     * connects two nodes (transition & place)
      *
-     * @param p_placebefore id place before
-     * @param p_placeafter id place after
-     * @param p_capacitybefore capacity before
-     * @param p_capacityafter capacity after
+     * @param p_id transition name
+     * @param p_source id of the source
+     * @param p_target id of the target
+     * @param p_capacity transition capacity
      * @return self-reference
      */
-    IPetrinet addTransitioin(
-        @NonNull final String p_placebefore,
-        @NonNull final String p_placeafter,
-        @NonNull @Nonnegative final Number p_capacitybefore,
-        @NonNull @Nonnegative final Number p_capacityafter
-    );
+    IPetrinet connect( @NonNull final String p_id, @NonNull final String p_source, @NonNull final String p_target, @NonNull @Nonnegative final Number p_capacity );
 
 }
