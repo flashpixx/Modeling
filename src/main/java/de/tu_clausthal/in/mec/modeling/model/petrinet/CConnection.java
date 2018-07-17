@@ -23,6 +23,7 @@
 
 package de.tu_clausthal.in.mec.modeling.model.petrinet;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.tu_clausthal.in.mec.modeling.model.graph.IBaseEdge;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
@@ -35,6 +36,12 @@ import javax.annotation.Nonnegative;
 public final class CConnection extends IBaseEdge implements IConnection
 {
     /**
+     * capacity
+     */
+    @JsonProperty( "capacity" )
+    private final Number m_capacity;
+
+    /**
      * ctor
      *
      * @param p_id edge name
@@ -43,6 +50,7 @@ public final class CConnection extends IBaseEdge implements IConnection
     public CConnection( @NonNull final String p_id, @Nonnegative @NonNull final Number p_capacity )
     {
         super( p_id, () -> p_capacity );
+        m_capacity = p_capacity;
     }
 
 }

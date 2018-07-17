@@ -23,6 +23,7 @@
 
 package de.tu_clausthal.in.mec.modeling.model.petrinet;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.tu_clausthal.in.mec.modeling.model.graph.IBaseNode;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
@@ -41,10 +42,12 @@ public final class CPlace extends IBaseNode implements IPlace
     /**
      * set with marks
      */
+    @JsonProperty( "marks" )
     private final Set<IMark> m_marks = new CopyOnWriteArraySet<>();
     /**
      * capacity
      */
+    @JsonProperty( "capacity" )
     private final Number m_capacity;
 
     /**

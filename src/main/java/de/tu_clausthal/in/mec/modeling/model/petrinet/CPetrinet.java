@@ -155,8 +155,18 @@ public final class CPetrinet implements IPetrinet
         {
             m_connection = null;
             m_edges = p_graph.edges().collect( Collectors.toSet() );
-            m_places = p_graph.nodes().parallel().filter( i -> i instanceof IPlace ).map( INode::<IPlace>raw ).collect( Collectors.toSet() );
-            m_transition = p_graph.nodes().parallel().filter( i -> i instanceof ITransition ).map( INode::<ITransition>raw ).collect( Collectors.toSet() );
+
+            m_places = p_graph.nodes()
+                              .parallel()
+                              .filter( i -> i instanceof IPlace )
+                              .map( INode::<IPlace>raw )
+                              .collect( Collectors.toSet() );
+
+            m_transition = p_graph.nodes()
+                                  .parallel()
+                                  .filter( i -> i instanceof ITransition )
+                                  .map( INode::<ITransition>raw )
+                                  .collect( Collectors.toSet() );
         }
     }
 }
