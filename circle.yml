@@ -50,7 +50,7 @@ jobs: # a collection of steps
       # push documentation online
       - add_ssh_keys:
           fingerprints:
-              - "_ssh_key_with_write_access"
+              - "ca:dc:dc:67:34:9d:87:4d:25:14:0d:72:03:67:78:2f"
       - run:
           name: Deploy Documentation
           command: |
