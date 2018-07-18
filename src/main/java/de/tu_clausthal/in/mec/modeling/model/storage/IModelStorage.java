@@ -27,12 +27,14 @@ import de.tu_clausthal.in.mec.modeling.model.IModel;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 
 /**
  * interface for model storage
  */
-public interface IModelStorage extends Function<String, IModel<?>>
+public interface IModelStorage extends Function<String, IModel<?>>, Supplier<Stream<IModel<?>>>
 {
     /**
      * adds a new model

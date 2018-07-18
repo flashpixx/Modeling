@@ -60,6 +60,7 @@ public final class CPetrinet implements IPetrinet
         m_network = new CDirectedGraph<>( p_name );
     }
 
+    @NonNull
     @Override
     public String id()
     {
@@ -70,6 +71,13 @@ public final class CPetrinet implements IPetrinet
     public boolean terminated()
     {
         return true;
+    }
+
+    @NonNull
+    @Override
+    public String description()
+    {
+        return "petrinet";
     }
 
     @NonNull

@@ -30,6 +30,7 @@ import java.text.MessageFormat;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Stream;
 
 
 /**
@@ -73,5 +74,11 @@ public enum EModelStorage implements IModelStorage
             throw new RuntimeException( MessageFormat.format( "model [{0}] does not exist", p_id ) );
 
         return l_model;
+    }
+
+    @Override
+    public Stream<IModel<?>> get()
+    {
+        return m_model.values().stream();
     }
 }

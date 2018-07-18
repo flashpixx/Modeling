@@ -40,7 +40,16 @@ public interface IModel<T extends IModel<?>> extends Callable<T>
      *
      * @return id
      */
+    @NonNull
     String id();
+
+    /**
+     * returns the model description
+     *
+     * @return description
+     */
+    @NonNull
+    String description();
 
     /**
      * flag for model is terminated

@@ -23,10 +23,13 @@
 
 package de.tu_clausthal.in.mec.modeling.controller;
 
+import de.tu_clausthal.in.mec.modeling.model.IModel;
 import de.tu_clausthal.in.mec.modeling.model.storage.EModelStorage;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.stream.Collectors;
 
 
 /**
@@ -36,6 +39,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping( "/model" )
 public final class CModelController
 {
+
+    /**
+     * list all models
+     *
+     * @return models with description
+     */
+    @RequestMapping( value = "/list" )
+    public Object list()
+    {
+        return EModelStorage.INSTANCE.get().collect( Collectors.toMap( IModel::id, IModel::description ) );
+    }
 
     /**
      * get model
